@@ -66,15 +66,16 @@ async def ask_question(ask: Ask):
     print('Sending a request to openai')
 
     start_phrase = ask.question
-    print("Question:    "+start_phrase)
+
     response: openai.types.chat.chat_completion.ChatCompletion = None
 
     response = client.chat.completions.create(
         model=deployment_name,
-        messages=[{"role": "assistant", "content": "I'm a 5 year old and i have the following question. Please answer only in short answers:" + start_phrase},
-                  {"role": "system", "content": "Answer this question with content only."}]
+        messages=[{"role": "assistant", "content": start_phrase},
+                  {"role": "system", "content": "Answer this question with exact content only. Option number is not required. Answer will be used as such for verification. Numbers can also be used. Avoid unnecessary literals."}]
     )
 
+    print("Question:    "+start_phrase)
     print(response.choices[0].message.content)
     print(response)
     answer = Answer(answer=response.choices[0].message.content)
