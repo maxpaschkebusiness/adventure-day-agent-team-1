@@ -80,7 +80,7 @@ search_client = SearchClient(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello, the current time is time"}
+    return {"message": "Hello, the current time is time2"}
 
 
 @app.post("/ask", summary="Ask a question", operation_id="ask")
@@ -121,14 +121,14 @@ async def ask_question(ask: Ask):
     if ask.type == QuestionType.multiple_choice:
         system_prompt = "Please choose the correct option:"
     elif ask.type == QuestionType.true_or_false:
-        system_prompt = "Is the following statement true or false:"
+        system_prompt = "Is the following statement true or false: answer in true or false in lower case without \".\""
     elif ask.type == QuestionType.popular_choice:
         system_prompt = "What is the most popular choice for:"
     elif ask.type == QuestionType.estimation:
-        system_prompt = "Please estimate the value of:"
+        system_prompt = "Please estimate the value of: Answer only in numbers."
     else:
         system_prompt = "Here is what you need to do:"
-
+    system_prompt += "Answer briefly, no bullshit."
     parameters = [system_prompt, ' Context:',
                   found_docs_as_text, ' Question:', question]
     joined_parameters = ''.join(parameters)
@@ -139,6 +139,8 @@ async def ask_question(ask: Ask):
     )
 
     answer = Answer(answer=response.choices[0].message.content)
+    print(question)
+    print(answer)
     answer.correlationToken = ask.correlationToken
     answer.promptTokensUsed = response.usage.prompt_tokens
     answer.completionTokensUsed = response.usage.completion_tokens
