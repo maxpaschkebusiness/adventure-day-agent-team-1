@@ -291,3 +291,12 @@ async def ask_question(ask: Ask):
         answer.completionTokensUsed = first_response.usage.completion_tokens
     answer.correlationToken = ask.correlationToken
     return answer
+
+
+@app.get("/get_actor/{title}", summary="Get the actor of a movie", operation_id="get_actor")
+async def get_actor(title: str):
+    """
+    Get the actor of a movie
+    """
+    actor = get_movie_actor("Hobbiton: The Heist of the Silver Dragon")
+    return {"actor": actor}
