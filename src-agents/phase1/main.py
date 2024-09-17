@@ -53,7 +53,7 @@ deployment_name = os.getenv("AZURE_OPENAI_COMPLETION_DEPLOYMENT_NAME")
 
 @app.get("/")
 async def root():
-    return {"message": "Hello Smoorghs"}
+    return {"message": "Hello Whats"}
 
 
 @app.post("/ask", summary="Ask a question", operation_id="ask")
@@ -75,7 +75,7 @@ async def ask_question(ask: Ask):
                   {"role": "system", "content": "Answer this question with exact content only. Option number is not required. Answer will be used as such for verification. Numbers can also be used. Avoid unnecessary literals."}]
     )
 
-    print("Question:    "+start_phrase)
+    print(start_phrase)
     print(response.choices[0].message.content)
     print(response)
     answer = Answer(answer=response.choices[0].message.content)
