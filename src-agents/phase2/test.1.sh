@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set the API endpoint URL
-API_URL="http://localhost:8000/ask"
-# API_URL="https://phase1.orangeground-87613208.swedencentral.azurecontainerapps.io/ask"
+# API_URL="http://localhost:8000/ask"
+API_URL="https://phase2.orangeground-87613208.swedencentral.azurecontainerapps.io/ask"
 
 # Set the question you want to ask
 QUESTION="Tell me about the latest Ant Man movie. When was it released?"
